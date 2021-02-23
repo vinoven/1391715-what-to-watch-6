@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-
-const Settings = {
-  FILMS: new Array(20).fill()
-};
+import films from './mocks/films';
 
 const promo = {
   title: `The Grand Budapest Hotel`,
@@ -14,7 +11,7 @@ const promo = {
 
 ReactDOM.render(
     <App
-      films={Settings.FILMS} promo={promo}
+      films={films} promo={promo}
     />,
     document.querySelector(`#root`)
 );
