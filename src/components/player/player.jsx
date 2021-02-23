@@ -1,11 +1,12 @@
 import React from 'react';
+import {filmPropTypes} from '../../utils/prop-types';
 
 const Player = (props) => {
-  const { film } = props;
+  const {film} = props;
 
   return (
     <div className="player">
-      <video src={film.video_link} className="player__video" poster={film.poster_image}></video>
+      <video src={film.videoLink} className="player__video" poster={film.posterImage}></video>
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -13,7 +14,7 @@ const Player = (props) => {
         <div className="player__controls-row">
           <div className="player__time">
             <progress className="player__progress" value="30" max="100"></progress>
-            <div className="player__toggler" style={{ left: 30 }}>Toggler</div>
+            <div className="player__toggler" style={{left: 30}}>Toggler</div>
           </div>
           <div className="player__time-value">1:30:29</div>
         </div>
@@ -37,5 +38,7 @@ const Player = (props) => {
       </div>
     </div>);
 };
+
+Player.propTypes = filmPropTypes;
 
 export default Player;

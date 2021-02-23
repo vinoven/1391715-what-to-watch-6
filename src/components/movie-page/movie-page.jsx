@@ -1,25 +1,27 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+import {filmPropTypes} from '../../utils/prop-types';
 
 const MoviePage = (props) => {
-  const { film } = props;
+  const {film} = props;
 
   return (
     <React.Fragment>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={film.background_image} alt={film.name} />
+            <img src={film.backgroundImage} alt={film.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header movie-card__head">
             <div className="logo">
-              <a href="main.html" className="logo__link">
+              <Link to="/" className="logo__link">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
-              </a>
+              </Link>
             </div>
 
             <div className="user-block">
@@ -50,7 +52,7 @@ const MoviePage = (props) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                <Link to="/films/${film.id}/review" className="btn movie-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -59,7 +61,7 @@ const MoviePage = (props) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={film.poster_image} alt={film.name} width="218" height="327" />
+              <img src={film.posterImage} alt={film.name} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
@@ -81,7 +83,7 @@ const MoviePage = (props) => {
                 <div className="movie-rating__score">{film.rating}</div>
                 <p className="movie-rating__meta">
                   <span className="movie-rating__level">Very good</span>
-                  <span className="movie-rating__count">{film.scores_count} ratings</span>
+                  <span className="movie-rating__count">{film.scoresCount} ratings</span>
                 </p>
               </div>
 
@@ -92,7 +94,7 @@ const MoviePage = (props) => {
 
                 <p className="movie-card__director"><strong>Director: {film.director}</strong></p>
 
-                <p className="movie-card__starring"><strong>Starring: {film.starring}</strong></p>
+                <p className="movie-card__starring"><strong>Starring: {film.starring.join(`, `)}</strong></p>
               </div>
             </div>
           </div>
@@ -144,11 +146,11 @@ const MoviePage = (props) => {
 
         <footer className="page-footer">
           <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
+            <Link to="/" className="logo__link logo__link--light">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <div className="copyright">
@@ -159,5 +161,7 @@ const MoviePage = (props) => {
     </React.Fragment>
   );
 };
+
+MoviePage.propTypes = filmPropTypes;
 
 export default MoviePage;

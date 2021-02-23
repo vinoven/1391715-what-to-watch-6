@@ -1,11 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import MoviesList from '../movies-list/movies-list';
+import {filmsPropTypes, promoPropTypes} from '../../utils/prop-types';
 
 
 const MainPage = (props) => {
-  const { films, promo } = props;
-  const { title, genre, year } = promo;
+  const {films, promo} = props;
+  const {title, genre, year} = promo;
 
   return (
     <React.Fragment>
@@ -126,13 +126,10 @@ const MainPage = (props) => {
   );
 };
 
+
 MainPage.propTypes = {
-  films: PropTypes.array.isRequired,
-  promo: PropTypes.exact({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired
-  }).isRequired
+  films: filmsPropTypes,
+  promo: promoPropTypes
 };
 
 export default MainPage;
