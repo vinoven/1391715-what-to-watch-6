@@ -4,10 +4,10 @@ import {filmsPropTypes} from '../../utils/prop-types';
 
 const MoviesList = (props) => {
   const {films} = props;
-  const [filmId, setFilmId] = useState(null);
+  const [activeFilmId, setActiveFilmId] = useState(null);
 
   const onActiveFilmSet = (activeFilm) => {
-    setFilmId(activeFilm.dataset.movieId);
+    setActiveFilmId(activeFilm.dataset.movieId);
   };
 
   return (

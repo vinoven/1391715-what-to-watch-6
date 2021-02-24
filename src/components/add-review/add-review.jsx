@@ -2,9 +2,12 @@ import React from 'react';
 import AddReviewForm from '../add-review-form/add-review-form';
 import {Link} from 'react-router-dom';
 import {filmPropTypes} from '../../utils/prop-types';
+import {getFilmDataById} from '../../utils/utils';
 
 const AddReview = (props) => {
-  const {film} = props;
+  const {films} = props;
+  const filmId = Number(props.match.params.id);
+  const film = getFilmDataById(films, filmId);
 
   return (
     <section className="movie-card movie-card--full">

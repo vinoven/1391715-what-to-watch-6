@@ -1,8 +1,11 @@
 import React from 'react';
 import {filmPropTypes} from '../../utils/prop-types';
+import {getFilmDataById} from '../../utils/utils';
 
 const Player = (props) => {
-  const {film} = props;
+  const {films} = props;
+  const filmId = Number(props.match.params.id);
+  const film = getFilmDataById(films, filmId);
 
   return (
     <div className="player">

@@ -20,17 +20,23 @@ const App = (props) => {
         <Route exact path="/login">
           <SignIn />
         </Route>
-        <Route exact path="/films/:id?">
-          <MoviePage film = {films[0]}/>
-        </Route>
-        <Route exact path="/films/:id?/review">
-          <AddReview film = {films[0]} />
-        </Route>
-        <Route exact path="/player/:id?">
-          <Player film = {films[0]} />
-        </Route>
+        <Route exact path="/films/:id?" render={(defaultProps) => (
+          <MoviePage
+            films={films}
+            {...defaultProps} />
+        )} />
+        <Route exact path="/films/:id?/review" render={(defaultProps) => (
+          <AddReview
+            films={films}
+            {...defaultProps} />
+        )} />
+        <Route exact path="/player/:id?" render={(defaultProps) => (
+          <Player
+            films={films}
+            {...defaultProps} />
+        )} />
         <Route exact path="/mylist">
-          <MyList films = {films} />
+          <MyList films={films} />
         </Route>
         <Route>
           <PageNotFound />

@@ -1,9 +1,13 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import {filmPropTypes} from '../../utils/prop-types';
+import {getFilmDataById} from '../../utils/utils';
 
 const MoviePage = (props) => {
-  const {film} = props;
+  const {films} = props;
+  const filmId = Number(props.match.params.id);
+  const film = getFilmDataById(films, filmId);
+  const history = useHistory();
 
   return (
     <React.Fragment>
@@ -40,7 +44,7 @@ const MoviePage = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button onClick = {() => history.push(`/player/${film.id}`)} className="btn btn--play movie-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -52,7 +56,7 @@ const MoviePage = (props) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to="/films/${film.id}/review" className="btn movie-card__button">Add review</Link>
+                <Link to={`/films/${film.id}/review`} className="btn movie-card__button">Add review</Link>
               </div>
             </div>
           </div>
