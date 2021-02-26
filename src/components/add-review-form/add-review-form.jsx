@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 
 const AddReviewForm = () => {
 
-  const [userRatingValue, setUserRatingValue] = useState(null);
+  const [reviewData, setReviewData] = useState({rating: null});
 
   const hadleChange = ({target}) => {
-    setUserRatingValue(target.value);
+    setReviewData({...reviewData, rating: target.value});
   };
 
   return (
