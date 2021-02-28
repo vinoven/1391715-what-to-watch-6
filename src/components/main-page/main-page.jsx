@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import MovieCard from '../movie-card/movie-card';
+import MoviesList from '../movies-list/movies-list';
+import {filmsPropTypes, promoPropTypes} from '../../utils/prop-types';
 
 
 const MainPage = (props) => {
@@ -101,7 +101,7 @@ const MainPage = (props) => {
             </li>
           </ul>
 
-          <div className="catalog__movies-list"> {films.map((film, i) => <MovieCard key={i} film={film} />)} </div>
+          <MoviesList films={films} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -126,13 +126,10 @@ const MainPage = (props) => {
   );
 };
 
+
 MainPage.propTypes = {
-  films: PropTypes.array.isRequired,
-  promo: PropTypes.exact({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired
-  }).isRequired
+  films: filmsPropTypes,
+  promo: promoPropTypes
 };
 
 export default MainPage;

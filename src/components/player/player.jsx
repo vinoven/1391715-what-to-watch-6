@@ -1,10 +1,15 @@
 import React from 'react';
+import {filmPropTypes} from '../../utils/prop-types';
+import {getFilmDataById} from '../../utils/utils';
 
-const Player = () => {
+const Player = (props) => {
+  const {films} = props;
+  const filmId = Number(props.match.params.id);
+  const film = getFilmDataById(films, filmId);
 
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={film.videoLink} className="player__video" poster={film.posterImage}></video>
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -24,7 +29,7 @@ const Player = () => {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{film.name}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
@@ -36,5 +41,7 @@ const Player = () => {
       </div>
     </div>);
 };
+
+Player.propTypes = filmPropTypes;
 
 export default Player;
