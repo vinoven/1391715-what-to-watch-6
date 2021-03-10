@@ -7,3 +7,11 @@ export const TabToComponentMap = {
 };
 
 export const REVIEW_COLUMNS_NUMBER = 2;
+
+export const RATING_DESCRIPTION = {
+  BAD: `Bad`,
+  NORMAL: `Normal`,
+  GOOD: `Good`,
+  VERY_GOOD: `Very good`,
+  AWESOME: `Awesome`
+};
