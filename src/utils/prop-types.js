@@ -27,3 +27,9 @@ export const filmPropTypes = PropTypes.shape({
 }).isRequired;
 
 export const filmsPropTypes = PropTypes.arrayOf(filmPropTypes).isRequired;
+
+export const movieTabPropTypes = {
+  tabName: PropTypes.string.isRequired,
+  activeTab: PropTypes.string.isRequired,
+  setActiveTab: PropTypes.func.isRequired
+};
