@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {filmPropTypes} from '../../utils/prop-types';
 import {TabToComponentMap} from '../../utils/const';
+import reviews from '../../mocks/reviews';
 import OverviewTab from '../overview-tab/overview-tab';
 import DetailsTab from '../details-tab/details-tab';
 import ReviewsTab from '../reviews-tab/reviews-tab';
@@ -17,7 +18,7 @@ const MovieTabs = (props) => {
       case TabToComponentMap.Details:
         return <DetailsTab film={film} />;
       case TabToComponentMap.Reviews:
-        return <ReviewsTab film={film} />;
+        return <ReviewsTab reviews={reviews.filter((review) => review.id === film.id)}/>;
       default:
         return <OverviewTab film={film} />;
     }

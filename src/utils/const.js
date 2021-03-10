@@ -5,3 +5,5 @@ export const TabToComponentMap = {
   Details: `Details`,
   Reviews: `Reviews`
 };
+
+export const REVIEW_COLUMNS_NUMBER = 2;

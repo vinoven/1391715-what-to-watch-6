@@ -1,8 +1,11 @@
 import React from 'react';
 import {filmPropTypes} from '../../utils/prop-types';
+import {convertMinutesToHoursAndMinutes} from '../../utils/utils';
 
 const DetailsTab = (props) => {
   const {film} = props;
+  const runTime = convertMinutesToHoursAndMinutes(film.runTime);
+
   return (
     <div className="movie-card__text movie-card__row">
       <div className="movie-card__text-col">
@@ -13,7 +16,7 @@ const DetailsTab = (props) => {
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Starring</strong>
           <span className="movie-card__details-value">
-            {film.starring.join(`, `)}
+            {film.starring.join(`\n`)}
           </span>
         </p>
       </div>
@@ -21,7 +24,7 @@ const DetailsTab = (props) => {
       <div className="movie-card__text-col">
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Run Time</strong>
-          <span className="movie-card__details-value">{film.runTime} ПРИВЕСТИ К ФОРМАТУ</span>
+          <span className="movie-card__details-value">{runTime}</span>
         </p>
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Genre</strong>
