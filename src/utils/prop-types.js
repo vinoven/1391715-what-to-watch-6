@@ -27,3 +27,22 @@ export const filmPropTypes = PropTypes.shape({
 }).isRequired;
 
 export const filmsPropTypes = PropTypes.arrayOf(filmPropTypes).isRequired;
+
+export const movieTabPropTypes = {
+  tabName: PropTypes.string.isRequired,
+  activeTab: PropTypes.string.isRequired,
+  setActiveTab: PropTypes.func.isRequired
+};
+
+export const reviewPropTypes = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  user: PropTypes.exact({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+  rating: PropTypes.number.isRequired,
+  comment: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired
+}).isRequired;
+
+export const reviewsPropTypes = PropTypes.arrayOf(filmPropTypes).isRequired;

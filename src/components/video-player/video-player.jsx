@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import VIDEO_PLAYBACK_DELAY from '../../utils/const';
+import {VIDEO_PLAYBACK_DELAY} from '../../utils/const';
 import {filmPropTypes} from '../../utils/prop-types';
 
 const VideoPlayer = (props) => {
