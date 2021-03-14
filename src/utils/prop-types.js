@@ -46,3 +46,4 @@ export const reviewPropTypes = PropTypes.shape({
 }).isRequired;
 
 export const reviewsPropTypes = PropTypes.arrayOf(filmPropTypes).isRequired;
+export const genreItemPropTypes = PropTypes.string.isRequired;

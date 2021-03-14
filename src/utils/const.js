@@ -15,3 +15,9 @@ export const RATING_DESCRIPTION = {
   VERY_GOOD: `Very good`,
   AWESOME: `Awesome`
 };
+
+export const GENRE_OPTIONS = {
+  ALL_GENRES: `All genres`
+};
+
+export const MAX_GENRES_COUNT = 9;
