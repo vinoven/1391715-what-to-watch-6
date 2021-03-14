@@ -1,9 +1,9 @@
 import {ActionType} from "./action";
-
+import filmList from '../mocks/films';
 
 const initialState = {
-  films: [],
-  genre: `all`
+  films: filmList,
+  genre: `All genres`
 };
 
 const reducer = (state = initialState, action) => {
@@ -12,11 +12,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         genre: action.payload
-      };
-    case ActionType.GET_FILMS_BY_GENRE:
-      return {
-        ...state,
-        films: action.payload
       };
   }
 

@@ -14,7 +14,7 @@ const store = createStore(
 
 const promo = {
   title: `The Grand Budapest Hotel`,
-  genre: `Drama`,
+  promoGenre: `Drama`,
   year: 2014
 };
 

@@ -1,4 +1,10 @@
 export const ActionType = {
-  GET_FILMS_BY_GENRE: `getFilmsByGenre`,
-  CHANGE_GENRE: `changeGenre`
+  CHANGE_GENRE: `genre/changeGenre`
+};
+
+export const ActionCreator = {
+  changeGenre: (genre) => ({
+    type: ActionType.CHANGE_GENRE,
+    payload: genre
+  })
 };
