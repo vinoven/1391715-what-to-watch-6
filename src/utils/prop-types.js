@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 export const promoPropTypes = PropTypes.exact({
   title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
+  promoGenre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired
 }).isRequired;
 
@@ -46,3 +46,10 @@ export const reviewPropTypes = PropTypes.shape({
 }).isRequired;
 
 export const reviewsPropTypes = PropTypes.arrayOf(filmPropTypes).isRequired;
+export const genreItemPropTypes = {
+  genreTitle: PropTypes.string.isRequired,
+  genre: PropTypes.string.isRequired,
+  changeGenre: PropTypes.func.isRequired
+};
+
+export const genrePropTypes = PropTypes.string.isRequired;

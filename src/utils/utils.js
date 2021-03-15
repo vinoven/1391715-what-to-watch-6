@@ -1,4 +1,5 @@
-import {RATING_DESCRIPTION} from "./const";
+import {RATING_DESCRIPTION} from './const';
+import {GENRE_OPTIONS} from './const';
 
 export const getFilmDataById = (films, id) => {
   return films.find((element) => element.id === id);
@@ -33,4 +34,12 @@ export const getRatingDescriptionByRatingValue = (ratingValue) => {
   }
 
   return ratingDescription;
+};
+
+export const filterFilmsByGenre = (films, genre) => {
+  if (genre === GENRE_OPTIONS.ALL_GENRES) {
+    return films;
+  }
+
+  return films.filter((film) => film.genre === genre);
 };
