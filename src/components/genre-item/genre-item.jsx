@@ -4,9 +4,10 @@ import {ActionCreator} from '../../store/action';
 import {genreItemPropTypes} from '../../utils/prop-types';
 
 const GenreItem = (props) => {
-  const {genreTitle, genre, changeGenre} = props;
+  const {genreTitle, genre, changeGenre, resetFilmsToShowCount} = props;
   const handleGenreClick = () => {
     changeGenre(genreTitle);
+    resetFilmsToShowCount();
   };
   const isActive = genre === genreTitle;
 
@@ -25,6 +26,9 @@ const mapStateToProps = (state) => ({
 const mapDispactchToProps = (dispatch) => ({
   changeGenre(genre) {
     dispatch(ActionCreator.changeGenre(genre));
+  },
+  resetFilmsToShowCount() {
+    dispatch(ActionCreator.resetFilmsToShowCount());
   }
 });
 
