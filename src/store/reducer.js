@@ -1,6 +1,6 @@
-import { ActionType } from "./action";
+import {ActionType} from "./action";
 import filmList from '../mocks/films';
-import { FILMS_TO_RENDER_COUNT } from '../utils/const';
+import {FILMS_TO_RENDER_COUNT} from '../utils/const';
 
 const initialState = {
   films: filmList,
@@ -30,4 +30,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export { reducer };
+export {reducer};

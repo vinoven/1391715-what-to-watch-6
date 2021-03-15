@@ -5,6 +5,7 @@ import GenreList from '../genre-list/genre-list';
 import {connect} from 'react-redux';
 import {filterFilmsByGenre} from '../../utils/utils';
 import ShowMore from '../show-more/show-more';
+import PropTypes from 'prop-types';
 
 const MainPage = (props) => {
   const {films, genre, promo, filmsToShowCount} = props;
@@ -107,7 +108,8 @@ const mapStateToProps = (state) => ({
 MainPage.propTypes = {
   films: filmsPropTypes,
   genre: genrePropTypes,
-  promo: promoPropTypes
+  promo: promoPropTypes,
+  filmsToShowCount: PropTypes.number.isRequired
 };
 
 export {MainPage};
