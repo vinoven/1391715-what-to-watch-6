@@ -4,11 +4,15 @@ import {filmsPropTypes, genrePropTypes, promoPropTypes} from '../../utils/prop-t
 import GenreList from '../genre-list/genre-list';
 import {connect} from 'react-redux';
 import {filterFilmsByGenre} from '../../utils/utils';
+import ShowMore from '../show-more/show-more';
 
 const MainPage = (props) => {
-  const {films, genre, promo} = props;
+  const {films, genre, promo, filmsToShowCount} = props;
   const {title, promoGenre, year} = promo;
   const filteredFilmsByGenre = filterFilmsByGenre(films, genre);
+  const filmsToRender = filteredFilmsByGenre.slice(0, filmsToShowCount);
+  const isShowMoreNeeded = filteredFilmsByGenre.length > filmsToShowCount;
+
   return (
     <React.Fragment>
       <section className="movie-card">
@@ -71,11 +75,9 @@ const MainPage = (props) => {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <GenreList films={films} />
-          <MoviesList films={filteredFilmsByGenre} />
+          <MoviesList films={filmsToRender} />
+          {isShowMoreNeeded ? <ShowMore /> : ``}
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
         </section>
 
         <footer className="page-footer">
@@ -98,9 +100,9 @@ const MainPage = (props) => {
 
 const mapStateToProps = (state) => ({
   films: state.films,
-  genre: state.genre
+  genre: state.genre,
+  filmsToShowCount: state.filmsToShowCount
 });
-
 
 MainPage.propTypes = {
   films: filmsPropTypes,

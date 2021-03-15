@@ -21,3 +21,7 @@ export const GENRE_OPTIONS = {
 };
 
 export const MAX_GENRES_COUNT = 9;
+export const FILMS_TO_RENDER_COUNT = {
+  BY_DEFAULT: 8,
+  PER_STEP: 8
+};
