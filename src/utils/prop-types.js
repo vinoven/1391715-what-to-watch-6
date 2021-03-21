@@ -23,7 +23,7 @@ export const filmPropTypes = PropTypes.shape({
   runTime: PropTypes.number.isRequired,
   genre: PropTypes.string.isRequired,
   released: PropTypes.number.isRequired,
-  isFavorite: PropTypes.bool.isRequired
+  isFavourite: PropTypes.bool.isRequired
 }).isRequired;
 
 export const filmsPropTypes = PropTypes.arrayOf(filmPropTypes).isRequired;
