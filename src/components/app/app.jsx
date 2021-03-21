@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import MainPage from '../main-page/main-page';
 import MoviePage from '../movie-page/movie-page';
@@ -8,9 +8,27 @@ import Player from '../player/player';
 import SignIn from '../sign-in/sign-in';
 import PageNotFound from '../page-not-found/page-not-found';
 import {filmsPropTypes, promoPropTypes} from '../../utils/prop-types';
+import {connect} from 'react-redux';
+import {fetchFilmsList} from '../../store/api-actions';
+import LoadingSpinner from '../loading-spinner/loading-spinner';
+import PropTypes from 'prop-types';
+
 
 const App = (props) => {
-  const {films, promo} = props;
+  const {films, isFilmsLoaded, loadFilms, promo} = props;
+
+  useEffect(() => {
+    if (!isFilmsLoaded) {
+      loadFilms();
+    }
+  }, [isFilmsLoaded]);
+
+  if (!isFilmsLoaded) {
+    return (
+      <LoadingSpinner />
+    );
+  }
+
   return (
     <BrowserRouter>
       <Switch>
@@ -46,9 +64,23 @@ const App = (props) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  films: state.films,
+  isFilmsLoaded: state.isFilmsLoaded
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadFilms() {
+    dispatch(fetchFilmsList());
+  }
+});
+
 App.propTypes = {
   films: filmsPropTypes,
-  promo: promoPropTypes
+  promo: promoPropTypes,
+  isFilmsLoaded: PropTypes.bool.isRequired,
+  loadFilms: PropTypes.func.isRequired
 };
 
-export default App;
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,9 +1,9 @@
 import {ActionType} from "./action";
-import filmList from '../mocks/films';
 import {FILMS_TO_RENDER_COUNT} from '../utils/const';
 
 const initialState = {
-  films: filmList,
+  films: [],
+  isFilmsLoaded: false,
   genre: `All genres`,
   filmsToShowCount: FILMS_TO_RENDER_COUNT.BY_DEFAULT
 };
@@ -24,6 +24,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         filmsToShowCount: initialState.filmsToShowCount
+      };
+    case ActionType.LOAD_FILMS:
+      return {
+        ...state,
+        films: action.payload,
+        isFilmsLoaded: true
       };
   }
 
