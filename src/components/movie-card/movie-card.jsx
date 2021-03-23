@@ -10,11 +10,13 @@ const MovieCard = (props) => {
   };
 
   return (
-    <article className="small-movie-card catalog__movies-card" data-movie-id={film.id} onMouseOver = {handleMouseOver}>
-      <VideoPlayer film={film}/>
-      <h3 className="small-movie-card__title">
-        <Link className="small-movie-card__link" to={`/films/${film.id}`}>{film.name}</Link>
-      </h3>
+    <article className="small-movie-card catalog__movies-card" data-movie-id={film.id} onMouseOver={handleMouseOver}>
+      <Link className="small-movie-card__link" to={`/films/${film.id}`}>
+        <VideoPlayer film={film} />
+        <h3 className="small-movie-card__title">
+          {film.name}
+        </h3>
+      </Link>
     </article>
   );
 };

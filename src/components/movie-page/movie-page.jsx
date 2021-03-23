@@ -4,9 +4,13 @@ import {filmPropTypes} from '../../utils/prop-types';
 import {getFilmDataById} from '../../utils/utils';
 import MovieTabs from '../movie-tabs/movie-tabs';
 import MoviesList from '../movies-list/movies-list';
+import PropTypes from 'prop-types';
+import {AuthorizationStatus} from '../../utils/const';
+import {connect} from 'react-redux';
+
 
 const MoviePage = (props) => {
-  const {films} = props;
+  const {films, authorizationStatus, redirectToMyList} = props;
   const filmId = Number(props.match.params.id);
   const film = getFilmDataById(films, filmId);
   const history = useHistory();
@@ -31,10 +35,14 @@ const MoviePage = (props) => {
             </div>
 
             <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
+
+              {(authorizationStatus === AuthorizationStatus.AUTH) ?
+                <div className="user-block__avatar">
+                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" onClick={() => redirectToMyList()} />
+                </div> : <Link to="/login" className="user-block__link">Sign in</Link>
+              }
             </div>
+
           </header>
 
           <div className="movie-card__wrap">
@@ -99,6 +107,15 @@ const MoviePage = (props) => {
   );
 };
 
-MoviePage.propTypes = filmPropTypes;
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+});
 
-export default MoviePage;
+MoviePage.propTypes = {
+  ...filmPropTypes,
+  redirectToFilmPlayer: PropTypes.func.isRequired
+};
+
+export {MoviePage};
+export default connect(mapStateToProps, null)(MoviePage);
+

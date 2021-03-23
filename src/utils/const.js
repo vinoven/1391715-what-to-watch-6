@@ -25,3 +25,8 @@ export const FILMS_TO_RENDER_COUNT = {
   BY_DEFAULT: 8,
   PER_STEP: 8
 };
+
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`
+};

@@ -1,15 +1,16 @@
 import React from 'react';
 import MoviesList from '../movies-list/movies-list';
-import {filmsPropTypes, genrePropTypes, promoPropTypes} from '../../utils/prop-types';
+import {filmsPropTypes, genrePropTypes} from '../../utils/prop-types';
 import GenreList from '../genre-list/genre-list';
 import {connect} from 'react-redux';
 import {filterFilmsByGenre} from '../../utils/utils';
 import ShowMore from '../show-more/show-more';
 import PropTypes from 'prop-types';
+import {AuthorizationStatus} from '../../utils/const';
+import {Link} from 'react-router-dom';
 
 const MainPage = (props) => {
-  const {films, genre, promo, filmsToShowCount} = props;
-  const {title, promoGenre, year} = promo;
+  const {films, genre, filmsToShowCount, authorizationStatus, redirectToMyList, redirectToFilmPlayer} = props;
   const filteredFilmsByGenre = filterFilmsByGenre(films, genre);
   const filmsToRender = filteredFilmsByGenre.slice(0, filmsToShowCount);
   const isShowMoreNeeded = filteredFilmsByGenre.length > filmsToShowCount;
@@ -18,7 +19,7 @@ const MainPage = (props) => {
     <React.Fragment>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={films[0].backgroundImage} alt={films[0].name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -33,27 +34,31 @@ const MainPage = (props) => {
           </div>
 
           <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
+
+            {(authorizationStatus === AuthorizationStatus.AUTH) ?
+              <div className="user-block__avatar">
+                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" onClick={()=> redirectToMyList()} />
+              </div> : <Link to="/login" className="user-block__link">Sign in</Link>
+            }
+
           </div>
         </header>
 
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+              <img src={films[0].posterImage} alt={films[0].name} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{title}</h2>
+              <h2 className="movie-card__title">{films[0].name}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{promoGenre}</span>
-                <span className="movie-card__year">{year}</span>
+                <span className="movie-card__genre">{films[0].genre}</span>
+                <span className="movie-card__year">{films[0].released}</span>
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button" onClick={redirectToFilmPlayer}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -102,14 +107,17 @@ const MainPage = (props) => {
 const mapStateToProps = (state) => ({
   films: state.films,
   genre: state.genre,
-  filmsToShowCount: state.filmsToShowCount
+  filmsToShowCount: state.filmsToShowCount,
+  authorizationStatus: state.authorizationStatus,
 });
 
 MainPage.propTypes = {
   films: filmsPropTypes,
   genre: genrePropTypes,
-  promo: promoPropTypes,
-  filmsToShowCount: PropTypes.number.isRequired
+  filmsToShowCount: PropTypes.number.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  redirectToMyList: PropTypes.func.isRequired,
+  redirectToFilmPlayer: PropTypes.func.isRequired,
 };
 
 export {MainPage};
