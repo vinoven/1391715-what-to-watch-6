@@ -1,11 +1,13 @@
 import {ActionType} from "./action";
-import {FILMS_TO_RENDER_COUNT} from '../utils/const';
+import {AuthorizationStatus, FILMS_TO_RENDER_COUNT} from '../utils/const';
 
 const initialState = {
   films: [],
   isFilmsLoaded: false,
   genre: `All genres`,
-  filmsToShowCount: FILMS_TO_RENDER_COUNT.BY_DEFAULT
+  filmsToShowCount: FILMS_TO_RENDER_COUNT.BY_DEFAULT,
+  authorizationStatus: AuthorizationStatus.NO_AUTH,
+  user: {}
 };
 
 const reducer = (state = initialState, action) => {
@@ -30,6 +32,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         films: action.payload,
         isFilmsLoaded: true
+      };
+    case ActionType.REQUIRED_AUTHORIZATION:
+      return {
+        ...state,
+        authorizationStatus: action.payload.authStatus,
+        user: action.payload.user
       };
   }
 

@@ -1,11 +1,5 @@
 import PropTypes from 'prop-types';
 
-export const promoPropTypes = PropTypes.exact({
-  title: PropTypes.string.isRequired,
-  promoGenre: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired
-}).isRequired;
-
 export const filmPropTypes = PropTypes.shape({
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,

@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "axios": "0.21.1",
+    "history": "4.10.1",
     "prop-types": "15.7",
     "react": "16.14",
     "react-dom": "16.14",
