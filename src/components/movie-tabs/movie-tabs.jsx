@@ -1,26 +1,23 @@
 import React, {useState} from 'react';
-import {filmPropTypes} from '../../utils/prop-types';
 import {TabToComponentMap} from '../../utils/const';
-import reviews from '../../mocks/reviews';
 import OverviewTab from '../overview-tab/overview-tab';
 import DetailsTab from '../details-tab/details-tab';
 import ReviewsTab from '../reviews-tab/reviews-tab';
 import MovieTab from '../movie-tab/movie-tab';
 
-const MovieTabs = (props) => {
-  const {film} = props;
+const MovieTabs = () => {
   const [activeTab, setActiveTab] = useState(`Overview`);
 
   const getComponentByTabName = (tabName) => {
     switch (tabName) {
       case TabToComponentMap.Overview:
-        return <OverviewTab film={film} />;
+        return <OverviewTab />;
       case TabToComponentMap.Details:
-        return <DetailsTab film={film} />;
+        return <DetailsTab />;
       case TabToComponentMap.Reviews:
-        return <ReviewsTab reviews={reviews.filter((review) => review.id === film.id)}/>;
+        return <ReviewsTab />;
       default:
-        return <OverviewTab film={film} />;
+        return <OverviewTab />;
     }
   };
 
@@ -40,5 +37,4 @@ const MovieTabs = (props) => {
   );
 };
 
-MovieTabs.propTypes = filmPropTypes;
 export default MovieTabs;

@@ -46,11 +46,10 @@ const App = (props) => {
             films={films}
             {...defaultProps}
             redirectToMyList={() => defaultProps.history.push(`/mylist`)}
-            redirectToFilmPlayer= {(film) => defaultProps.history.push(`/player/${film}`)} />
+          />
         )} />
         <PrivateRoute exact path="/films/:id/review" render={(defaultProps) => (
           <AddReview
-            films={films}
             {...defaultProps} />
         )} />
         <Route exact path="/player/:id" render={(defaultProps) => (

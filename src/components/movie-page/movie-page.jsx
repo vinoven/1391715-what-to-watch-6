@@ -1,26 +1,38 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import {filmPropTypes} from '../../utils/prop-types';
-import {getFilmDataById} from '../../utils/utils';
 import MovieTabs from '../movie-tabs/movie-tabs';
 import MoviesList from '../movies-list/movies-list';
-import PropTypes from 'prop-types';
 import {AuthorizationStatus} from '../../utils/const';
 import {connect} from 'react-redux';
-
+import {fetchFilm, fetchCommentsOnTheFilm} from '../../store/api-actions';
+import LoadingSpinner from '../loading-spinner/loading-spinner';
 
 const MoviePage = (props) => {
-  const {films, authorizationStatus, redirectToMyList} = props;
+  const {films, authorizationStatus, redirectToMyList, selectedMovie, isSelectedFilmLoaded, onFilmLoad, onFilmReviewsLoad} = props;
   const filmId = Number(props.match.params.id);
-  const film = getFilmDataById(films, filmId);
+  // const film = getFilmDataById(films, filmId);
   const history = useHistory();
+
+  useEffect(() => {
+    if (!isSelectedFilmLoaded) {
+      onFilmLoad(filmId);
+      onFilmReviewsLoad(filmId);
+    }
+  }, []);
+
+  if (!isSelectedFilmLoaded) {
+    return (
+      <LoadingSpinner />
+    );
+  }
 
   return (
     <React.Fragment>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
-            <img src={film.backgroundImage} alt={film.name} />
+            <img src={selectedMovie.backgroundImage} alt={selectedMovie.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -47,14 +59,14 @@ const MoviePage = (props) => {
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{film.name}</h2>
+              <h2 className="movie-card__title">{selectedMovie.name}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{film.genre}</span>
-                <span className="movie-card__year">{film.released}</span>
+                <span className="movie-card__genre">{selectedMovie.genre}</span>
+                <span className="movie-card__year">{selectedMovie.released}</span>
               </p>
 
               <div className="movie-card__buttons">
-                <button onClick = {() => history.push(`/player/${film.id}`)} className="btn btn--play movie-card__button" type="button">
+                <button onClick = {() => history.push(`/player/${selectedMovie.id}`)} className="btn btn--play movie-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -66,7 +78,7 @@ const MoviePage = (props) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`/films/${film.id}/review`} className="btn movie-card__button">Add review</Link>
+                {authorizationStatus === AuthorizationStatus.AUTH ? <Link to={`/films/${selectedMovie.id}/review`} className="btn movie-card__button">Add review</Link> : ``}
               </div>
             </div>
           </div>
@@ -75,10 +87,10 @@ const MoviePage = (props) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={film.posterImage} alt={film.name} width="218" height="327" />
+              <img src={selectedMovie.posterImage} alt={selectedMovie.name} width="218" height="327" />
             </div>
 
-            <MovieTabs film={film} />
+            <MovieTabs />
           </div>
         </div>
       </section >
@@ -86,7 +98,7 @@ const MoviePage = (props) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <MoviesList films={films.filter((currentFilm)=>currentFilm.genre === film.genre).slice(0, 3)}/>
+          <MoviesList films={films.filter((currentFilm)=>currentFilm.genre === selectedMovie.genre).slice(0, 3)}/>
         </section>
 
         <footer className="page-footer">
@@ -109,13 +121,23 @@ const MoviePage = (props) => {
 
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
+  isSelectedFilmLoaded: state.isSelectedFilmLoaded,
+  selectedMovie: state.selectedMovie
 });
 
 MoviePage.propTypes = {
-  ...filmPropTypes,
-  redirectToFilmPlayer: PropTypes.func.isRequired
+  ...filmPropTypes
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  onFilmLoad(id) {
+    dispatch(fetchFilm(id));
+  },
+  onFilmReviewsLoad(id) {
+    dispatch(fetchCommentsOnTheFilm(id));
+  }
+});
+
 export {MoviePage};
-export default connect(mapStateToProps, null)(MoviePage);
+export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);
 

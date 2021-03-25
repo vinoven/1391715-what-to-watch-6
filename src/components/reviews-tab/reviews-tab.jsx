@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {REVIEW_COLUMNS_NUMBER} from '../../utils/const';
 import {reviewsPropTypes} from '../../utils/prop-types';
 import Review from '../review/review';
@@ -18,5 +19,10 @@ const ReviewsTab = (props) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  reviews: state.selectedComments
+});
+
 ReviewsTab.propTypes = reviewsPropTypes;
-export default ReviewsTab;
+export {ReviewsTab};
+export default connect(mapStateToProps, null)(ReviewsTab);
