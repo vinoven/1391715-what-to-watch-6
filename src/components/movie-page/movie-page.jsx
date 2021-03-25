@@ -5,7 +5,7 @@ import MovieTabs from '../movie-tabs/movie-tabs';
 import MoviesList from '../movies-list/movies-list';
 import {AuthorizationStatus} from '../../utils/const';
 import {connect} from 'react-redux';
-import {fetchFilm, fetchCommentsOnTheFilm} from '../../store/api-actions';
+import {fetchFilm, fetchFilmComments} from '../../store/api-actions';
 import LoadingSpinner from '../loading-spinner/loading-spinner';
 
 const MoviePage = (props) => {
@@ -134,7 +134,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchFilm(id));
   },
   onFilmReviewsLoad(id) {
-    dispatch(fetchCommentsOnTheFilm(id));
+    dispatch(fetchFilmComments(id));
   }
 });
 

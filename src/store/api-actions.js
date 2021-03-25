@@ -22,7 +22,7 @@ export const fetchFilm = (id) => (dispatch, _getState, api) => (
   })
 );
 
-export const fetchCommentsOnTheFilm = (id) => (dispatch, _getState, api) => (
+export const fetchFilmComments = (id) => (dispatch, _getState, api) => (
   api.get(`/comments/${id}`)
   .then((response)=> {
     dispatch(ActionCreator.loadComments(response.data));

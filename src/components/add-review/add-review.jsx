@@ -3,7 +3,7 @@ import AddReviewForm from '../add-review-form/add-review-form';
 import {Link} from 'react-router-dom';
 import {filmPropTypes} from '../../utils/prop-types';
 import {connect} from 'react-redux';
-import {fetchFilm, fetchCommentsOnTheFilm} from '../../store/api-actions';
+import {fetchFilm, fetchFilmComments} from '../../store/api-actions';
 import LoadingSpinner from '../loading-spinner/loading-spinner';
 import PropTypes from 'prop-types';
 
@@ -84,7 +84,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchFilm(id));
   },
   onFilmReviewsLoad(id) {
-    dispatch(fetchCommentsOnTheFilm(id));
+    dispatch(fetchFilmComments(id));
   }
 });
 

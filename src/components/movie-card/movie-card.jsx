@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {filmPropTypes} from '../../utils/prop-types';
 import VideoPlayer from '../video-player/video-player';
-import {fetchFilm, fetchCommentsOnTheFilm} from '../../store/api-actions';
+import {fetchFilm, fetchFilmComments} from '../../store/api-actions';
 import {connect} from 'react-redux';
 
 const MovieCard = (props) => {
@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchFilm(id));
   },
   onFilmReviewsLoad(id) {
-    dispatch(fetchCommentsOnTheFilm(id));
+    dispatch(fetchFilmComments(id));
   }
 });
 
