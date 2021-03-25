@@ -13,3 +13,29 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
     .then((response) => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH, response.data)))
     .then(() => dispatch(ActionCreator.redirectToRoute(`/`)))
 );
+
+export const fetchFilm = (id) => (dispatch, _getState, api) => (
+  api.get(`/films/${id}`)
+  .then((response) => adaptFilm(response.data))
+  .then((film)=> {
+    dispatch(ActionCreator.selectFilm(film));
+  })
+);
+
+export const fetchFilmComments = (id) => (dispatch, _getState, api) => (
+  api.get(`/comments/${id}`)
+  .then((response)=> {
+    dispatch(ActionCreator.loadComments(response.data));
+  })
+);
+
+export const postComment = ({rating, comment}, id) => (dispatch, _getState, api) => (
+  api.post(`/comments/${id}`, {rating, comment})
+    .then((response) => {
+      dispatch(ActionCreator.postComment(response.data));
+      return response;
+    })
+    .then((response) => dispatch(ActionCreator.loadComments(response.data)))
+    .then(() => dispatch(ActionCreator.redirectToRoute(`/films/${id}`)))
+    .catch()
+);

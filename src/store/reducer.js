@@ -7,7 +7,11 @@ const initialState = {
   genre: `All genres`,
   filmsToShowCount: FILMS_TO_RENDER_COUNT.BY_DEFAULT,
   authorizationStatus: AuthorizationStatus.NO_AUTH,
-  user: {}
+  user: {},
+  selectedMovie: {},
+  isSelectedFilmLoaded: false,
+  isCommentSent: false,
+  selectedComments: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -38,6 +42,27 @@ const reducer = (state = initialState, action) => {
         ...state,
         authorizationStatus: action.payload.authStatus,
         user: action.payload.user
+      };
+    case ActionType.SELECT_FILM:
+      return {
+        ...state,
+        selectedMovie: action.payload,
+        isSelectedFilmLoaded: true
+      };
+    case ActionType.POST_COMMENT:
+      return {
+        ...state,
+        isCommentSent: false
+      };
+    case ActionType.ENABLE_COMMENT_FLAG:
+      return {
+        ...state,
+        isCommentSent: true
+      };
+    case ActionType.LOAD_COMMENTS:
+      return {
+        ...state,
+        selectedComments: action.payload,
       };
   }
 

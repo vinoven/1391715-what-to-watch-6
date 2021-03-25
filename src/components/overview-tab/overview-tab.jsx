@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {filmPropTypes} from '../../utils/prop-types';
 import {getRatingDescriptionByRatingValue} from '../../utils/utils';
 
@@ -29,5 +30,10 @@ const OverviewTab = (props) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  film: state.selectedMovie
+});
+
 OverviewTab.propTypes = filmPropTypes;
-export default OverviewTab;
+export {OverviewTab};
+export default connect(mapStateToProps, null)(OverviewTab);
