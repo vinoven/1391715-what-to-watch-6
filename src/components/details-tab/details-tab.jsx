@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {filmPropTypes} from '../../utils/prop-types';
 import {convertMinutesToHoursAndMinutes} from '../../utils/utils';
 
@@ -39,5 +40,10 @@ const DetailsTab = (props) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  film: state.selectedMovie
+});
+
 DetailsTab.propTypes = filmPropTypes;
-export default DetailsTab;
+export {DetailsTab};
+export default connect(mapStateToProps, null)(DetailsTab);

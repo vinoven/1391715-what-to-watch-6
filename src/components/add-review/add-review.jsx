@@ -1,19 +1,37 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import AddReviewForm from '../add-review-form/add-review-form';
 import {Link} from 'react-router-dom';
 import {filmPropTypes} from '../../utils/prop-types';
-import {getFilmDataById} from '../../utils/utils';
+import {connect} from 'react-redux';
+import {fetchFilm, fetchFilmComments} from '../../store/api-actions';
+import LoadingSpinner from '../loading-spinner/loading-spinner';
+import PropTypes from 'prop-types';
+
+
+// import {getFilmDataById} from '../../utils/utils';
 
 const AddReview = (props) => {
-  const {films} = props;
+  const {isSelectedFilmLoaded, selectedMovie, onFilmLoad, onReviewsLoad} = props;
   const filmId = Number(props.match.params.id);
-  const film = getFilmDataById(films, filmId);
+
+  useEffect(() => {
+    if (!isSelectedFilmLoaded) {
+      onFilmLoad(filmId);
+      onReviewsLoad(filmId);
+    }
+  }, [isSelectedFilmLoaded]);
+
+  if (!isSelectedFilmLoaded) {
+    return (
+      <LoadingSpinner />
+    );
+  }
 
   return (
     <section className="movie-card movie-card--full">
       <div className="movie-card__header">
         <div className="movie-card__bg">
-          <img src={film.backgroundImage} alt={film.name} />
+          <img src={selectedMovie.backgroundImage} alt={selectedMovie.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -30,7 +48,7 @@ const AddReview = (props) => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to="/films/" className="breadcrumbs__link">{film.name}</Link>
+                <Link to="/films/" className="breadcrumbs__link">{selectedMovie.name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -46,7 +64,7 @@ const AddReview = (props) => {
         </header>
 
         <div className="movie-card__poster movie-card__poster--small">
-          <img src={film.posterImage} alt={film.name} width="218" height="327" />
+          <img src={selectedMovie.posterImage} alt={selectedMovie.name} width="218" height="327" />
         </div>
       </div>
 
@@ -56,6 +74,31 @@ const AddReview = (props) => {
   );
 };
 
-AddReview.propTypes = filmPropTypes;
+const mapStateToProps = (state) => ({
+  selectedMovie: state.selectedMovie,
+  isSelectedFilmLoaded: state.isSelectedFilmLoaded
+});
 
-export default AddReview;
+const mapDispatchToProps = (dispatch) => ({
+  onFilmLoad(id) {
+    dispatch(fetchFilm(id));
+  },
+  onFilmReviewsLoad(id) {
+    dispatch(fetchFilmComments(id));
+  }
+});
+
+AddReview.propTypes = {
+  isSelectedFilmLoaded: PropTypes.bool.isRequired,
+  selectedMovie: filmPropTypes,
+  onFilmLoad: PropTypes.func.isRequired,
+  onReviewsLoad: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired
+    })
+  })
+};
+
+export {AddReview};
+export default connect(mapStateToProps, mapDispatchToProps)(AddReview);
